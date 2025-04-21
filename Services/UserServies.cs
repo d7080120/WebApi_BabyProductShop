@@ -18,7 +18,11 @@ namespace Services
             {
                 return null;
             }
+            int powerPassword = powerOfPassword(userToUpdate.Password);
+            if (powerPassword >= 3)
             return userRepositroy.update(userToUpdate,id);
+            else
+                throw new Exception("password is not strong");
         }
 
         public User login(LoginUser user)
@@ -36,7 +40,11 @@ namespace Services
             {
                 return null;
             }
-            return userRepositroy.addUser(user);
+            int powerPassword = powerOfPassword(user.Password);
+            if (powerPassword >=3)
+                return userRepositroy.addUser(user);
+            else
+                throw new Exception("password is not strong");
         }
         public int powerOfPassword(string password)
         {

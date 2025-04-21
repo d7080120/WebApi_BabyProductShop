@@ -31,13 +31,19 @@ namespace BabyProductShop.Controllers
         [HttpPost]
         public ActionResult<User> Post([FromBody]User user)
         {
-            user = userService.addUser(user);
-            if (user != null)
-                return Ok(user);
-            //return CreatedAtAction(nameof(Ok), new { id = user.UserId }, user);
-            else
-                return CreatedAtAction(nameof(BadRequest), null);
-
+            try
+            {
+                user = userService.addUser(user);
+                if (user != null)
+                    return Ok(user);
+                //return CreatedAtAction(nameof(Ok), new { id = user.UserId }, user);
+                else
+                    return BadRequest("fileds are empty");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         //// POST api/<Users>
         //[HttpPost]
@@ -57,12 +63,18 @@ namespace BabyProductShop.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]User userToUpdate)
         {
-            
-            userToUpdate = userService.update(userToUpdate, id );
-            if (userToUpdate != null)
-                return Ok(userToUpdate);
-            else
-                return BadRequest();
+            try
+            {
+                userToUpdate = userService.update(userToUpdate, id);
+                if (userToUpdate != null)
+                    return Ok(userToUpdate);
+                else
+                    return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         //// DELETE api/<Users>/5

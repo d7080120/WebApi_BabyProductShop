@@ -4,11 +4,14 @@
     <meta charset="utf-8" />
     <title></title>
     <script src="connect.js"></script>
+    <script src="Login.js"></script>
 
 </head>
 <body>
-    <h1>hello <span id="firstName"> </span> you succsseed connected</h1>
-    <div>
+    <h1>Hello <span id="firstName"></span> you succsseed connected</h1>
+    <button id="ButtonupdateDitels" onclick="updateDitels()">update ditels</button>
+
+    <div id="updateDitels" style="visibility: hidden">
         <label for="uusername">username</label>
         <input type="text" id="uusername" />
 
@@ -26,7 +29,10 @@
 
         <br />
 
-        <button onclick="update()">signUp</button>
+        <button onclick="update()">update</button>
+        <button onclick="powerpassword(`update`)">power password</button>
+
     </div>
+
 </body>
 </html>
