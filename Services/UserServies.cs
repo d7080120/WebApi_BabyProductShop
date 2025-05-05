@@ -17,6 +17,7 @@ namespace Services
             return userRepositroy.getUserById(id);
         }
 
+
         public User update(User userToUpdate, int id)
         {
             if (userToUpdate.Username == null || userToUpdate.Password == null || userToUpdate.FirstName == null || userToUpdate.LastName == null)
