@@ -11,7 +11,12 @@ namespace BabyProductShop.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        UserServies userService = new UserServies();
+        private readonly IUserServies userService;
+        public UsersController(IUserServies iu)
+        {
+            userService = iu;
+        }
+        //= new UserServies();
 
         // GET: api/<Users>
         //[HttpGet]

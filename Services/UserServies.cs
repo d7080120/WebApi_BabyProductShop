@@ -4,15 +4,20 @@ using System.Text.Json;
 
 namespace Services
 {
-    public class UserServies
+    public class UserServies : IUserServies
     {
-        UserRepositroy userRepositroy = new UserRepositroy();
+        //UserRepositroy userRepositroy = new UserRepositroy();
+        private readonly IUserRepositroy userRepositroy;
+        public UserServies(IUserRepositroy ur)
+        {
+            userRepositroy = ur;
+        }
         public User getUserById(int id)
         {
             return userRepositroy.getUserById(id);
         }
 
-        public User update(User userToUpdate,int id)
+        public User update(User userToUpdate, int id)
         {
             if (userToUpdate.Username == null || userToUpdate.Password == null || userToUpdate.FirstName == null || userToUpdate.LastName == null)
             {
@@ -20,7 +25,7 @@ namespace Services
             }
             int powerPassword = powerOfPassword(userToUpdate.Password);
             if (powerPassword >= 3)
-            return userRepositroy.update(userToUpdate,id);
+                return userRepositroy.update(userToUpdate, id);
             else
                 throw new Exception("password is not strong");
         }
@@ -41,21 +46,21 @@ namespace Services
                 return null;
             }
             int powerPassword = powerOfPassword(user.Password);
-            if (powerPassword >=3)
+            if (powerPassword >= 3)
                 return userRepositroy.addUser(user);
             else
                 throw new Exception("password is not strong");
         }
         public int powerOfPassword(string password)
         {
-            if (password==null||password=="")
+            if (password == null || password == "")
             {
                 return -1;
             }
             int result = Zxcvbn.Core.EvaluatePassword(password).Score;
             return result;
         }
-      
+
         //public Boolean deleteUser()
         //{
 

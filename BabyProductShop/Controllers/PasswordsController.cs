@@ -9,7 +9,12 @@ namespace BabyProductShop.Controllers
     [ApiController]
     public class PasswordsController : ControllerBase
     {
-        UserServies userServices = new UserServies();
+        IUserServies userServices;
+        public PasswordsController(IUserServies iu)
+        {
+            userServices = iu;
+        }
+        //= new UserServies();
 
          // POST api/<PasswordsController>
         [HttpPost]
