@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace Repositories
 {
-    public class UserRepositroy
+    public class UserRepositroy : IUserRepositroy
     {
         string filePath = Path.Combine(Directory.GetCurrentDirectory(), "users.txt");
 
@@ -27,7 +27,7 @@ namespace Repositories
             return null;
         }
 
-        public User update(User userToUpdate,int id)
+        public User update(User userToUpdate, int id)
         {
             string textToReplace = string.Empty;
             using (StreamReader reader = System.IO.File.OpenText(filePath))

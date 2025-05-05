@@ -42,8 +42,10 @@ const register = async () => {
             headers: { "Content-Type": 'application/json' },
             body: JSON.stringify(newUser)
         })
-        if (!response.ok)
+        if (!response.ok) {
+            alert ("filds are empty and the password must be stronger from 2")
             throw new Error("Error reciving data from server")
+        }
         alert('succsess add user')
         
     }
@@ -52,14 +54,20 @@ const register = async () => {
     }
 }
 const powerpassword = async (type) => {
-    const password = type == `login` ? document.querySelector("#loginPassword").value : document.querySelector("#rpassword").value
+    const password = type == `update` ? document.querySelector("#upassword").value : document.querySelector("#rpassword").value
+    if (password == null) {
+        alert("0")
+        return;
+    }
     const response = await fetch(`api/Passwords`, {
         method: 'POST',
         headers: { "Content-Type": 'application/json' },
         body: JSON.stringify(password)
     })
-    if (!response.ok)
-        throw new Error("Error reciving data from server")
-    power=await response.json()
+    if (!response.ok) {
+        alert("0");
+        return;
+    }
+    power = await response.json()
     alert(power)
 }
