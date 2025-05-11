@@ -9,19 +9,20 @@ using Microsoft.EntityFrameworkCore;
 namespace Entities;
 
 [Keyless]
-public partial class User
+public partial class Prudoct
 {
     public int Id { get; set; }
 
-    [StringLength(50)]
-    public string Password { get; set; }
+    public int? CategoryId { get; set; }
 
-    [StringLength(50)]
-    public string UserName { get; set; }
+    [StringLength(20)]
+    public string Name { get; set; }
 
-    [StringLength(50)]
-    public string FirstName { get; set; }
+    [StringLength(100)]
+    public string Description { get; set; }
 
-    [StringLength(50)]
-    public string LastName { get; set; }
+    public int? Cost { get; set; }
+
+    [StringLength(40)]
+    public string Image { get; set; }
 }

@@ -9,19 +9,10 @@ using Microsoft.EntityFrameworkCore;
 namespace Entities;
 
 [Keyless]
-public partial class User
+public partial class Category
 {
     public int Id { get; set; }
 
-    [StringLength(50)]
-    public string Password { get; set; }
-
-    [StringLength(50)]
-    public string UserName { get; set; }
-
-    [StringLength(50)]
-    public string FirstName { get; set; }
-
-    [StringLength(50)]
-    public string LastName { get; set; }
+    [StringLength(20)]
+    public string Name { get; set; }
 }

@@ -1,12 +1,13 @@
 ﻿using BabyProductShop;
+using Entities;
 
 namespace Repositories
 {
     public interface IUserRepositroy
     {
-        User addUser(User user);
-        User getUserById(int id);
-        User login(LoginUser value);
-        User update(User userToUpdate, int id);
+        Task<User> addUser(User user);
+        Task<User> getUserById(int id);
+        Task<User> login(LoginUser value);
+        Task<User> update(User userToUpdate, int id);
     }
 }
