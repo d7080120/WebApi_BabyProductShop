@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,28 +36,27 @@ namespace BabyProductShop.Controllers
 
         // POST api/<Users>
         [HttpPost]
-        public ActionResult<User> Post([FromBody]User user)
+        public async Task<ActionResult<User>> Register([FromBody]User user)
         {
             try
             {
-                user = userService.addUser(user);
-                if (user != null)
-                    return Ok(user);
-                //return CreatedAtAction(nameof(Ok), new { id = user.UserId }, user);
+                User newUser = await userService.registerAsync(user);
+                if (newUser != null)
+                    return Ok(newUser);
                 else
-                    return BadRequest("fileds are empty");
+                    return StatusCode(400,"fileds are empty");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                    return StatusCode(400, ex.Message);
             }
         }
         //// POST api/<Users>
         //[HttpPost]
         [Route("login")]
-        public ActionResult<User> Post([FromBody] LoginUser loginUser)
+        public async Task<ActionResult<Task<User>>> Post([FromBody] LoginUser loginUser)
         {
-            User user = userService.login(loginUser);
+            User user =await userService.loginAsync(loginUser);
             if (user != null)
             {
                 return Ok(user);
@@ -66,13 +67,13 @@ namespace BabyProductShop.Controllers
         }
         //PUT api/<Users>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]User userToUpdate)
+        public async Task<IActionResult> Put(int id, [FromBody]User userToUpdate)
         {
             try
             {
-                userToUpdate = userService.update(userToUpdate, id);
-                if (userToUpdate != null)
-                    return Ok(userToUpdate);
+                User updetedUser =await userService.updateAsync(userToUpdate, id);
+                if (updetedUser != null)
+                    return Ok(updetedUser);
                 else
                     return BadRequest();
             }

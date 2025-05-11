@@ -2,16 +2,17 @@
 using Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Repositories
 {
     public class UserRepositroy : IUserRepositroy
     {
-        private readonly Baby_Prudocts_webApi _baby_Prudocts_webApi;
+        private readonly Prudoct_Kategory_webApi _prudoct_Kategory_webApi;
 
-        public UserRepositroy(Baby_Prudocts_webApi baby_Prudocts_webApi)
+        public UserRepositroy(Prudoct_Kategory_webApi prudoct_Kategory_webApi)
         {
-            _baby_Prudocts_webApi = baby_Prudocts_webApi;
+            _prudoct_Kategory_webApi = prudoct_Kategory_webApi;
         }
 
         //string filePath = Path.Combine(Directory.GetCurrentDirectory(), "users.txt");
@@ -21,48 +22,39 @@ namespace Repositories
 
         //}
 
-        public async Task<User> getUserById(int id)
+        public async Task<User> getUserByIdAsync(int id)
         {
-            User user =await _baby_Prudocts_webApi.Users.FirstAsync((u) =>  u.Id == id);
+            User user =await _prudoct_Kategory_webApi.Users.FirstAsync((u) =>  u.Id == id);
             return user;
         }
 
-        public async Task<User> update(User userToUpdate, int id)
+        public async Task<User> updateAsync(User userToUpdate, int id)
         {
-            User user = await _baby_Prudocts_webApi.Users.FirstAsync((u) => u.Id == id);
-            await _baby_Prudocts_webApi.Users.Update(userToUpdate);
-            await _baby_Prudocts_webApi.SaveChangesAsync();
-            return null;
+            _prudoct_Kategory_webApi.Users.Update(userToUpdate);
+            await _prudoct_Kategory_webApi.SaveChangesAsync();
+            return await Task.FromResult(userToUpdate);
         }
 
-        public async Task< User >login(LoginUser value)
+        public async Task< User >loginAsync(LoginUser value)
         {
-            User user = await _baby_Prudocts_webApi.Users.FirstAsync((u) => u.Password ==value.Password &&u.UserName==value.Username);
+            User user = await _prudoct_Kategory_webApi.Users.FirstAsync((u) => u.Password ==value.Password &&u.Username==value.Username);
             return user;
         }
 
-        public async Task< User> addUser(User user)
+        public async Task< User> registerAsync(User user)
         {
-            //int numberOfUsers = 0;
-            //try
-            //{
-            //    numberOfUsers = System.IO.File.ReadLines(filePath).Count();
-            //}
-            //catch
-            //{
-            //}
-            //user.UserId = numberOfUsers + 1;
-            //string userJson = JsonSerializer.Serialize(user);
-            //System.IO.File.AppendAllText(filePath, userJson + Environment.NewLine);
-            //return user;
-            User user = await _baby_Prudocts_webApi.Users.AddAsync(user);
-            await _baby_Prudocts_webApi.SaveChangesAsync();
+            await _prudoct_Kategory_webApi.Users.AddAsync(user);
+            await _prudoct_Kategory_webApi.SaveChangesAsync();
             return user;
         }
 
-        //public Boolean deleteUser()
+        public async Task<List<User>>getAllUsersAsync()
+        {
+            return await _prudoct_Kategory_webApi.Users.ToListAsync();
+        }
+        //public async Task<Boolean> deleteUser(int id)
         //{
-
+           
         //}
     }
 }

@@ -43,7 +43,7 @@ const register = async () => {
             body: JSON.stringify(newUser)
         })
         if (!response.ok) {
-            alert ("filds are empty and the password must be stronger from 2")
+            alert ("filds are empty and the password must be stronger from 2 or username is existed")
             throw new Error("Error reciving data from server")
         }
         alert('succsess add user')
