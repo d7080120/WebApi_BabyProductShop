@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Entities;
+namespace Entities.Models;
 
 public partial class User
 {
@@ -24,4 +24,7 @@ public partial class User
 
     [StringLength(50)]
     public string LastName { get; set; }
+
+    [InverseProperty("User")]
+    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

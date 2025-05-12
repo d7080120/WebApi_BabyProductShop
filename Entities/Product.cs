@@ -6,23 +6,36 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Entities;
+namespace Entities.Models;
 
-[Keyless]
-public partial class Prudoct
+public partial class Product
 {
+    [Key]
+    [Column("ID")]
     public int Id { get; set; }
 
+    [Column("CATEGORY_ID")]
     public int? CategoryId { get; set; }
 
+    [Column("NAME")]
     [StringLength(20)]
     public string Name { get; set; }
 
+    [Column("DESCRIPTION")]
     [StringLength(100)]
     public string Description { get; set; }
 
-    public int? Cost { get; set; }
+    [Column("PRICE")]
+    public int? Price { get; set; }
 
+    [Column("IMAGE")]
     [StringLength(40)]
     public string Image { get; set; }
+
+    [ForeignKey("CategoryId")]
+    [InverseProperty("Products")]
+    public virtual Category Category { get; set; }
+
+    [InverseProperty("Product")]
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }
