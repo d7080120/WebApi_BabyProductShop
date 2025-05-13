@@ -18,21 +18,28 @@ namespace BabyProductShop.Controllers
         {
             userService = iu;
         }
-        //= new UserServies();
 
-        // GET: api/<Users>
+        //GET: api/<Users>
         //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        public async Task<ActionResult<IEnumerable<User>>> Get()
+        {
+            List<User> users = await userService.getAllUsersAsync();
+            if (users != null)
+                return Ok(users);
+            else
+                return StatusCode(400, "users didnt find");
+        }
 
         // GET api/<Users>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> Get(int id)
+        {
+            User user = await userService.getUserByIdAsync(id);
+            if (user != null)
+                return Ok(user);
+            else
+                return StatusCode(400, "user didnt find");
+        }
 
         // POST api/<Users>
         [HttpPost]

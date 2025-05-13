@@ -74,6 +74,11 @@ namespace Services
             return result;
         }
 
+        public async Task<List<User>> getAllUsersAsync()
+        {
+            return await userRepositroy.getAllUsersAsync();
+        }
+
         //public Boolean deleteUser()
         //{
 

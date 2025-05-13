@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Entities.Models;
+namespace Entities;
 
 [Table("ORDER_ITEM")]
 public partial class OrderItem

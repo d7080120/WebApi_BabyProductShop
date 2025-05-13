@@ -10,5 +10,6 @@ namespace Services
         Task<User> loginAsync(LoginUser user);
         int powerOfPassword(string password);
         Task<User> updateAsync(User userToUpdate, int id);
+        Task<List<User>> getAllUsersAsync();
     }
 }

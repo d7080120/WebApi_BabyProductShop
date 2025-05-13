@@ -5,6 +5,12 @@ using Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IUserServies, UserServies>();
 builder.Services.AddScoped<IUserRepositroy, UserRepositroy>();
+builder.Services.AddScoped<ICategoryServies, CategoryServies>();
+builder.Services.AddScoped<ICategoryRepositroy, CategoryRepositroy>();
+builder.Services.AddScoped<IProductServies, ProductServies>();
+builder.Services.AddScoped<IProductRepositroy, ProductRepositroy>();
+builder.Services.AddScoped<IOrderServies, OrderServies>();
+builder.Services.AddScoped<IOrderRepositroy, OrderRepositroy>();
 builder.Services.AddDbContext<Prudoct_Kategory_webApi>(options=>options.UseSqlServer("Data Source=SRV2\\PUPILS;Initial Catalog=Prudoct_Kategory_webApi;Integrated Security=True; Trusted_Connection=True;TrustServerCertificate=True"));
 // Add services to the container.
 
