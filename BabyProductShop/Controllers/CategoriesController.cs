@@ -20,7 +20,7 @@ namespace BabyProductShop.Controllers
         }
 
         //GET: api/<Categories>
-        //[HttpGet]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> Get()
         {
             List<Category> categories = await categoryService.getAllCategoriesAsync();
@@ -31,51 +31,51 @@ namespace BabyProductShop.Controllers
         }
 
         // GET api/<Categories>/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> Get(int id)
-        {
-            Category category = await categoryService.getCategoryByIdAsync(id);
-            if (category != null)
-                return Ok(category);
-            else
-                return StatusCode(400, "category didnt find");
-        }
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Category>> Get(int id)
+        //{
+        //    Category category = await categoryService.getCategoryByIdAsync(id);
+        //    if (category != null)
+        //        return Ok(category);
+        //    else
+        //        return StatusCode(400, "category didnt find");
+        //}
 
-        // POST api/<Categories>
-        [HttpPost]
-        public async Task<ActionResult<Category>> Register([FromBody]Category category)
-        {
-            try
-            {
-                Category newCategory = await categoryService.addCategoryAsync(category);
-                if (newCategory != null)
-                    return Ok(newCategory);
-                else
-                    return StatusCode(400,"fileds are empty");
-            }
-            catch (Exception ex)
-            {
-                    return StatusCode(400, ex.Message);
-            }
-        }
+        //POST api/<Categories>
+        //[HttpPost]
+        //public async Task<ActionResult<Category>> AddCategory([FromBody] Category category)
+        //{
+        //    try
+        //    {
+        //        Category newCategory = await categoryService.addCategoryAsync(category);
+        //        if (newCategory != null)
+        //            return Ok(newCategory);
+        //        else
+        //            return StatusCode(400, "fileds are empty");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(400, ex.Message);
+        //    }
+        //}
 
-        //PUT api/<Categories>/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]Category categoryToUpdate)
-        {
-            try
-            {
-                Category updetedCategory =await categoryService.updateAsync(categoryToUpdate, id);
-                if (updetedCategory != null)
-                    return Ok(updetedCategory);
-                else
-                    return BadRequest();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        ////PUT api/<Categories>/5
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> Put(int id, [FromBody] Category categoryToUpdate)
+        //{
+        //    try
+        //    {
+        //        Category updetedCategory = await categoryService.updateAsync(categoryToUpdate, id);
+        //        if (updetedCategory != null)
+        //            return Ok(updetedCategory);
+        //        else
+        //            return BadRequest();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
         //// DELETE api/<Categories>/5
         //[HttpDelete("{id}")]

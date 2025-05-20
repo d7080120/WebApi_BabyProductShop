@@ -20,7 +20,7 @@ namespace BabyProductShop.Controllers
         }
 
         //GET: api/<Products>
-        //[HttpGet]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> Get()
         {
             List<Product> products = await productService.getAllProductsAsync();

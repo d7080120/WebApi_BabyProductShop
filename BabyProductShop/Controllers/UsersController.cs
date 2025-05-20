@@ -20,7 +20,7 @@ namespace BabyProductShop.Controllers
         }
 
         //GET: api/<Users>
-        //[HttpGet]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
             List<User> users = await userService.getAllUsersAsync();
@@ -30,20 +30,20 @@ namespace BabyProductShop.Controllers
                 return StatusCode(400, "users didnt find");
         }
 
-        // GET api/<Users>/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Get(int id)
-        {
-            User user = await userService.getUserByIdAsync(id);
-            if (user != null)
-                return Ok(user);
-            else
-                return StatusCode(400, "user didnt find");
-        }
+        //// GET api/<Users>/5
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<User>> Get(int id)
+        //{
+        //    User user = await userService.getUserByIdAsync(id);
+        //    if (user != null)
+        //        return Ok(user);
+        //    else
+        //        return StatusCode(400, "user didnt find");
+        //}
 
         // POST api/<Users>
         [HttpPost]
-        public async Task<ActionResult<User>> Register([FromBody]User user)
+        public async Task<ActionResult<User>> Register([FromBody] User user)
         {
             try
             {
@@ -51,19 +51,19 @@ namespace BabyProductShop.Controllers
                 if (newUser != null)
                     return Ok(newUser);
                 else
-                    return StatusCode(400,"fileds are empty");
+                    return StatusCode(400, "fileds are empty");
             }
             catch (Exception ex)
             {
-                    return StatusCode(400, ex.Message);
+                return StatusCode(400, ex.Message);
             }
         }
         //// POST api/<Users>
-        //[HttpPost]
+        [HttpPost]
         [Route("login")]
-        public async Task<ActionResult<Task<User>>> Post([FromBody] LoginUser loginUser)
+        public async Task<ActionResult<User>> Login([FromBody] LoginUser loginUser)
         {
-            User user =await userService.loginAsync(loginUser);
+            User user = await userService.loginAsync(loginUser);
             if (user != null)
             {
                 return Ok(user);
@@ -74,11 +74,11 @@ namespace BabyProductShop.Controllers
         }
         //PUT api/<Users>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]User userToUpdate)
+        public async Task<IActionResult> Put(int id, [FromBody] User userToUpdate)
         {
             try
             {
-                User updetedUser =await userService.updateAsync(userToUpdate, id);
+                User updetedUser = await userService.updateAsync(userToUpdate, id);
                 if (updetedUser != null)
                     return Ok(updetedUser);
                 else

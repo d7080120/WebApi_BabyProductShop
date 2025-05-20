@@ -15,12 +15,22 @@ builder.Services.AddDbContext<Prudoct_Kategory_webApi>(options=>options.UseSqlSe
 // Add services to the container.
 
 builder.Services.AddControllers();
-
+builder.Services.AddOpenApi();
 var app = builder.Build();
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "My API V1");
+    });
+}
+
+app.UseHttpsRedirection();
 
 // Configure the HTTP request pipeline.
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
