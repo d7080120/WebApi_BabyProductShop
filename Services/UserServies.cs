@@ -12,12 +12,7 @@ namespace Services
         {
             userRepositroy = ur;
         }
-        public async Task<User> getUserByIdAsync(int id)
-        {
-            return await userRepositroy.getUserByIdAsync(id);
-        }
-
-
+       
         public async Task<User> updateAsync(User userToUpdate, int id)
         {
             if (userToUpdate.Username == null || userToUpdate.Password == null || userToUpdate.FirstName == null || userToUpdate.LastName == null)
@@ -79,9 +74,5 @@ namespace Services
             return await userRepositroy.getAllUsersAsync();
         }
 
-        //public Boolean deleteUser()
-        //{
-
-        //}
     }
 }

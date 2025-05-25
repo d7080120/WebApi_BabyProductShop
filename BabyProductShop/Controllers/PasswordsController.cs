@@ -15,8 +15,7 @@ namespace BabyProductShop.Controllers
         {
             userServices = iu;
         }
-        //= new UserServies();
-
+     
          // POST api/<PasswordsController>
         [HttpPost]
         public ActionResult<User> Post([FromBody] string value)

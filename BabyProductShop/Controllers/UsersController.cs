@@ -30,17 +30,6 @@ namespace BabyProductShop.Controllers
                 return StatusCode(400, "users didnt find");
         }
 
-        //// GET api/<Users>/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<User>> Get(int id)
-        //{
-        //    User user = await userService.getUserByIdAsync(id);
-        //    if (user != null)
-        //        return Ok(user);
-        //    else
-        //        return StatusCode(400, "user didnt find");
-        //}
-
         // POST api/<Users>
         [HttpPost]
         public async Task<ActionResult<User>> Register([FromBody] User user)
@@ -89,12 +78,6 @@ namespace BabyProductShop.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        //// DELETE api/<Users>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
 
     }
 

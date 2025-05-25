@@ -13,7 +13,7 @@ public partial class Prudoct_Kategory_webApi : DbContext
         : base(options)
     {
     }
-
+    public Prudoct_Kategory_webApi() { }
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }

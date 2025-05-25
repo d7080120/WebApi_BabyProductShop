@@ -12,20 +12,11 @@ namespace Services
         {
             productRepositroy = ur;
         }
-        public async Task<Product> getProductByIdAsync(int id)
-        {
-            return await productRepositroy.getProductByIdAsync(id);
-        }
-
-
+      
         public async Task<List<Product>> getAllProductsAsync()
         {
             return await productRepositroy.getAllProductsAsync();
         }
 
-        //public Boolean deleteProduct()
-        //{
-
-        //}
     }
 }

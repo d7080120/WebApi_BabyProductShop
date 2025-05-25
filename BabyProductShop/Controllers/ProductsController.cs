@@ -29,20 +29,6 @@ namespace BabyProductShop.Controllers
             else
                 return StatusCode(400, "products didnt find");
         }
-
-        // GET api/<Products>/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> Get(int id)
-        {
-            Product product = await productService.getProductByIdAsync(id);
-            if (product != null)
-                return Ok(product);
-            else
-                return StatusCode(400, "product didnt find");
-        }
-
-       
-
     }
 
 }
