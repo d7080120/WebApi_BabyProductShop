@@ -18,7 +18,7 @@ namespace Repositories
 
         public async Task<List<Product>> getAllProductsAsync()
         {
-            return await _prudoct_Kategory_webApi.Products.ToListAsync();
+            return await _prudoct_Kategory_webApi.Products.Include(c=>c.Category).ToListAsync();
         }
        
     }

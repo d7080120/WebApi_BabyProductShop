@@ -1,10 +1,11 @@
 ﻿using BabyProductShop;
+using DTOEntities;
 using Entities;
 
 namespace Services
 {
     public interface IProductServies
     {
-        Task<List<Product>> getAllProductsAsync();
+        Task<List<ProductDTO>> getAllProductsAsync();
     }
 }

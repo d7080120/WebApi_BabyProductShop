@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DTOEntities;
+using Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -21,9 +22,9 @@ namespace BabyProductShop.Controllers
 
         //GET: api/<Products>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> Get()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> Get()
         {
-            List<Product> products = await productService.getAllProductsAsync();
+            List<ProductDTO> products = await productService.getAllProductsAsync();
             if (products != null)
                 return Ok(products);
             else

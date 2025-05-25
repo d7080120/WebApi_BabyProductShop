@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using DTOEntities;
+using Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -50,7 +51,7 @@ namespace BabyProductShop.Controllers
         //// POST api/<Users>
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult<User>> Login([FromBody] LoginUser loginUser)
+        public async Task<ActionResult<User>> Login([FromBody] UserDTO loginUser)
         {
             User user = await userService.loginAsync(loginUser);
             if (user != null)

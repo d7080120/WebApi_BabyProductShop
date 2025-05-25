@@ -1,4 +1,6 @@
-﻿using BabyProductShop;
+﻿using AutoMapper;
+using BabyProductShop;
+using DTOEntities;
 using Entities;
 using Repositories;
 using System.Text.Json;
@@ -8,9 +10,11 @@ namespace Services
     public class UserServies : IUserServies
     {
         private readonly IUserRepositroy userRepositroy;
-        public UserServies(IUserRepositroy ur)
+        private readonly IMapper mapper;
+        public UserServies(IUserRepositroy ur ,IMapper mapper)
         {
             userRepositroy = ur;
+            this.mapper = mapper;
         }
        
         public async Task<User> updateAsync(User userToUpdate, int id)
@@ -32,7 +36,7 @@ namespace Services
                 throw new Exception("password is not strong");
         }
 
-        public async Task<User> loginAsync(LoginUser user)
+        public async Task<User> loginAsync(UserDTO user)
         {
             if (user.Username == null || user.Password == null)
             {

@@ -1,11 +1,12 @@
 ﻿using BabyProductShop;
+using DTOEntities;
 using Entities;
 
 namespace Services
 {
     public interface IOrderServies
     {
-        Task<Order> addOrderAsync(Order order);
+        Task<OrderDTO> addOrderAsync(OrderDTO order);
        
     }
 }

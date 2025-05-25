@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTOEntities;
+using Entities;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -21,11 +23,11 @@ namespace BabyProductShop.Controllers
 
         //POST api/<Orders>
         [HttpPost]
-        public async Task<ActionResult<Order>> Register([FromBody] Order order)
+        public async Task<ActionResult<OrderDTO>> AddOrder([FromBody] OrderDTO orderDTO)
         {
             try
             {
-                Order newOrder = await orderService.addOrderAsync(order);
+                OrderDTO newOrder = await orderService.addOrderAsync(orderDTO);
                 if (newOrder != null)
                     return Ok(newOrder);
                 else
