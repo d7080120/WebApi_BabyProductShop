@@ -1,56 +1,82 @@
-﻿using BabyProductShop;
+﻿using AutoMapper;
+using BabyProductShop;
+using DTOEntities;
+using Entities;
 using Repositories;
 using System.Text.Json;
 
 namespace Services
 {
-    public class UserServies
+    public class UserServies : IUserServies
     {
-        UserRepositroy userRepositroy = new UserRepositroy();
-        public User getUserById(int id)
+        private readonly IUserRepositroy userRepositroy;
+        private readonly IMapper mapper;
+        public UserServies(IUserRepositroy ur ,IMapper mapper)
         {
-            return userRepositroy.getUserById(id);
+            userRepositroy = ur;
+            this.mapper = mapper;
         }
-
-        public User update(User userToUpdate,int id)
+       
+        public async Task<User> updateAsync(User userToUpdate, int id)
         {
             if (userToUpdate.Username == null || userToUpdate.Password == null || userToUpdate.FirstName == null || userToUpdate.LastName == null)
             {
                 return null;
             }
-            return userRepositroy.update(userToUpdate,id);
+            List<User> users = await userRepositroy.getAllUsersAsync();
+            foreach (var item in users)
+            {
+                if (userToUpdate.Username == item.Username)
+                    return null;
+            }
+            int powerPassword = powerOfPassword(userToUpdate.Password);
+            if (powerPassword >= 3)
+                return await userRepositroy.updateAsync(userToUpdate, id);
+            else
+                throw new Exception("password is not strong");
         }
 
-        public User login(LoginUser user)
+        public async Task<User> loginAsync(UserDTO user)
         {
             if (user.Username == null || user.Password == null)
             {
                 return null;
             }
-            return userRepositroy.login(user);
+            return await userRepositroy.loginAsync(user);
         }
 
-        public User addUser(User user)
+        public async Task<User> registerAsync(User user)
         {
             if (user.Username == null || user.Password == null || user.FirstName == null || user.LastName == null)
             {
                 return null;
             }
-            return userRepositroy.addUser(user);
+            List<User> users = await userRepositroy.getAllUsersAsync();
+            foreach (var item in users)
+            {
+                if (user.Username==item.Username)
+                    return null;
+            }
+            int powerPassword = powerOfPassword(user.Password);
+            if (powerPassword >= 3)
+                return await userRepositroy.registerAsync(user);
+            else
+                throw new Exception("password is not strong");
         }
         public int powerOfPassword(string password)
         {
-            if (password==null||password=="")
+            if (password == null || password == "")
             {
                 return -1;
             }
             int result = Zxcvbn.Core.EvaluatePassword(password).Score;
             return result;
         }
-      
-        //public Boolean deleteUser()
-        //{
 
-        //}
+        public async Task<List<User>> getAllUsersAsync()
+        {
+            return await userRepositroy.getAllUsersAsync();
+        }
+
     }
 }

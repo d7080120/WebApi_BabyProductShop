@@ -1,98 +1,45 @@
 ﻿using BabyProductShop;
+using DTOEntities;
+using Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class UserRepositroy
+    public class UserRepositroy : IUserRepositroy
     {
-        string filePath = Path.Combine(Directory.GetCurrentDirectory(), "users.txt");
+        private readonly Prudoct_Kategory_webApi _prudoct_Kategory_webApi;
 
-        //public List<User> getUsers()
-        //{
-
-        //}
-
-        public User getUserById(int id)
+        public UserRepositroy(Prudoct_Kategory_webApi prudoct_Kategory_webApi)
         {
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.UserId == id)
-                        return user;
-                }
-            }
-            return null;
+            _prudoct_Kategory_webApi = prudoct_Kategory_webApi;
         }
 
-        public User update(User userToUpdate,int id)
+        public async Task<User> updateAsync(User userToUpdate, int id)
         {
-            string textToReplace = string.Empty;
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.UserId == id)
-                        textToReplace = currentUserInFile;
-                }
-            }
-
-            if (textToReplace != string.Empty)
-            {
-                string text = System.IO.File.ReadAllText(filePath);
-                text = text.Replace(textToReplace, JsonSerializer.Serialize(userToUpdate));
-                System.IO.File.WriteAllText(filePath, text);
-                return userToUpdate;
-            }
-            return null;
+            _prudoct_Kategory_webApi.Users.Update(userToUpdate);
+            await _prudoct_Kategory_webApi.SaveChangesAsync();
+            return await Task.FromResult(userToUpdate);
         }
 
-        public User login(LoginUser value)
+        public async Task<User>loginAsync(UserDTO value)
         {
-            using (StreamReader reader = System.IO.File.OpenText(filePath))
-            {
-                string? currentUserInFile;
-                try
-                {
-                    while ((currentUserInFile = reader.ReadLine()) != null)
-                    {
-                        User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                        if (user.Username == value.Username && user.Password == value.Password)
-                            return user;
-                    }
-                }
-                catch
-                {
-                    return null;
-                }
-
-            }
-            return null;
+            return await _prudoct_Kategory_webApi.Users.FirstOrDefaultAsync((u) => u.Password ==value.Password &&u.Username==value.Username);
+             
         }
 
-        public User addUser(User user)
+        public async Task<User> registerAsync(User user)
         {
-            int numberOfUsers = 0;
-            try
-            {
-                numberOfUsers = System.IO.File.ReadLines(filePath).Count();
-            }
-            catch
-            {
-            }
-            user.UserId = numberOfUsers + 1;
-            string userJson = JsonSerializer.Serialize(user);
-            System.IO.File.AppendAllText(filePath, userJson + Environment.NewLine);
+            await _prudoct_Kategory_webApi.Users.AddAsync(user);
+            await _prudoct_Kategory_webApi.SaveChangesAsync();
             return user;
         }
 
-        //public Boolean deleteUser()
-        //{
-
-        //}
+        public async Task<List<User>>getAllUsersAsync()
+        {
+            return await _prudoct_Kategory_webApi.Users.ToListAsync();
+        }
+      
     }
 }

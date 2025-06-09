@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities;
+using Microsoft.AspNetCore.Mvc;
 using Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -9,8 +10,12 @@ namespace BabyProductShop.Controllers
     [ApiController]
     public class PasswordsController : ControllerBase
     {
-        UserServies userServices = new UserServies();
-
+        IUserServies userServices;
+        public PasswordsController(IUserServies iu)
+        {
+            userServices = iu;
+        }
+     
          // POST api/<PasswordsController>
         [HttpPost]
         public ActionResult<User> Post([FromBody] string value)
