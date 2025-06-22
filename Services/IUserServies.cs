@@ -6,10 +6,10 @@ namespace Services
 {
     public interface IUserServies
     {
-        Task<User> registerAsync(User user);
-        Task<User> loginAsync(UserDTO user);
+        Task<UserDTO> registerAsync(UserDTO user);
+        Task<UserDTO> loginAsync(LoginUserDTO user);
         int powerOfPassword(string password);
-        Task<User> updateAsync(User userToUpdate, int id);
-        Task<List<User>> getAllUsersAsync();
+        Task<UserDTO> updateAsync(UserDTO userToUpdate, int id);
+        Task<List<UserDTO>> getAllUsersAsync();
     }
 }

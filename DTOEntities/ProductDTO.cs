@@ -8,7 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace DTOEntities
 {
-    public record ProductDTO(int Id,string Image,string Description,string Name,int CategoryId);
+    public record ProductDTO(int Id,string Image,string Description,string Name,int CategoryId, int Price);
 
 }
 

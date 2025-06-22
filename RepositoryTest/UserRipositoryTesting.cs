@@ -45,7 +45,7 @@ namespace RepositoryTest
             mockContext.Setup(x => x.Users).ReturnsDbSet(users);
 
             var userRepository = new UserRepositroy(mockContext.Object);
-            var loginUser = new UserDTO { Username = "user", Password = "pass" };
+            var loginUser = new LoginUserDTO { Username = "user", Password = "pass" };
 
             // Act
             var result = await userRepository.loginAsync(loginUser);

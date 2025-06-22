@@ -2,6 +2,6 @@
 
 namespace DTOEntities
 {
-    public record OrderDTO(DateTime Date,int Sum, int UserId, ICollection<OrderItemDTO> OrderItems);
+    public record OrderDTO(DateTime Date, int UserId, ICollection<OrderItemDTO> OrderItems);
     
 }

@@ -16,14 +16,22 @@ namespace Repositories
             _prudoct_Kategory_webApi = prudoct_Kategory_webApi;
         }
 
+
         public async Task<User> updateAsync(User userToUpdate, int id)
         {
-            _prudoct_Kategory_webApi.Users.Update(userToUpdate);
-            await _prudoct_Kategory_webApi.SaveChangesAsync();
-            return await Task.FromResult(userToUpdate);
-        }
+            var userFromDb = await _prudoct_Kategory_webApi.Users.FindAsync(id);
+            if (userFromDb == null)
+                return null;
 
-        public async Task<User>loginAsync(UserDTO value)
+            userFromDb.Username = userToUpdate.Username;
+            userFromDb.Password = userToUpdate.Password;
+            userFromDb.FirstName = userToUpdate.FirstName;
+            userFromDb.LastName = userToUpdate.LastName;
+
+            await _prudoct_Kategory_webApi.SaveChangesAsync();
+            return userFromDb;
+        }
+        public async Task<User>loginAsync(LoginUserDTO value)
         {
             return await _prudoct_Kategory_webApi.Users.FirstOrDefaultAsync((u) => u.Password ==value.Password &&u.Username==value.Username);
              

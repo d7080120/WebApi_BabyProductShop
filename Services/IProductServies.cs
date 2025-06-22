@@ -6,6 +6,6 @@ namespace Services
 {
     public interface IProductServies
     {
-        Task<List<ProductDTO>> getAllProductsAsync();
+        Task<List<ProductDTO>> getAllProductsAsync(ProductQueryParameters parameters);
     }
 }

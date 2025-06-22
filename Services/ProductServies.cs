@@ -9,19 +9,25 @@ namespace Services
 {
     public class ProductServies : IProductServies
     {
-        private readonly IProductRepositroy productRepositroy;
-        private readonly IMapper mapper;
+        private readonly IProductRepositroy _productRepositroy;
+        private readonly IMapper _mapper;
         public ProductServies(IProductRepositroy ur,IMapper mapper)
         {
-            productRepositroy = ur;
-            this.mapper = mapper;
+            _productRepositroy = ur;
+            this._mapper = mapper;
             
         }
-      
-        public async Task<List<ProductDTO>> getAllProductsAsync()
+
+        //public async Task<List<ProductDTO>> getAllProductsAsync()
+        //{
+        //    List<Product> products = await productRepositroy.getAllProductsAsync();
+        //    return mapper.Map<List<ProductDTO>>(products);
+        //}
+
+        public async Task<List<ProductDTO>> getAllProductsAsync(ProductQueryParameters parameters)
         {
-            List<Product> products = await productRepositroy.getAllProductsAsync();
-            return mapper.Map<List<ProductDTO>>(products);
+            List<Product> products = await _productRepositroy.getAllProductsAsync(parameters);
+            return _mapper.Map<List<ProductDTO>>(products);
         }
 
     }

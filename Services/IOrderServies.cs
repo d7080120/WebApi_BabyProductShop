@@ -6,7 +6,7 @@ namespace Services
 {
     public interface IOrderServies
     {
-        Task<OrderDTO> addOrderAsync(OrderDTO order);
+        Task<OrderBackDTO> addOrderAsync(OrderDTO order);
        
     }
 }

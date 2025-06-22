@@ -20,11 +20,22 @@ namespace BabyProductShop.Controllers
             productService = iu;
         }
 
-        //GET: api/<Products>
+        ////GET: api/<Products>
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<ProductDTO>>> Get()
+        //{
+
+        //    List<ProductDTO> products = await productService.getAllProductsAsync();
+        //    if (products != null)
+        //        return Ok(products);
+        //    else
+        //        return StatusCode(400, "products didnt find");
+        //}
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> Get()
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> Get([FromQuery] ProductQueryParameters parameters)
         {
-            List<ProductDTO> products = await productService.getAllProductsAsync();
+            List<ProductDTO> products = await productService.getAllProductsAsync(parameters);
             if (products != null)
                 return Ok(products);
             else

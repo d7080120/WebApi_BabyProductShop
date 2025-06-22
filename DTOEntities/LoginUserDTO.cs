@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace DTOEntities
 {
-       public record CategoryDTO(string Name, int Id);
+   public record LoginUserDTO(string Username, string Password);
 }

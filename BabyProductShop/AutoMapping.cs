@@ -12,7 +12,9 @@ namespace BabyProductShop
             CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
             CreateMap<Product, ProductDTO>().ReverseMap();
             CreateMap<Category, CategoryDTO>().ReverseMap();
-            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<User, LoginUserDTO>().ReverseMap();
+            CreateMap<User,UserDTO>().ReverseMap();
+            CreateMap<Order, OrderBackDTO>().ReverseMap();
         }
     }
 }

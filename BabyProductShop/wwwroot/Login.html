@@ -1,49 +1,82 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!--<!DOCTYPE html>
+<html lang="he" dir="rtl">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>התחברות / הרשמה</title>
+    <link rel="stylesheet" href="style.css">
     <script src="Login.js"></script>
-
 </head>
 <body>
-    <div>
-        <label for="username">username</label>
-        <input type="text" id="loginUsername" />
+    <div class="main-container">
+        <h2>התחברות</h2>
+        <label for="loginUsername">שם משתמש</label>
+        <input type="text" id="loginUsername" tabindex="1" />
 
-        <br />
-        <label for="password">password</label>
-        <input type="text" id="loginPassword" />
-        <br />
-        <!--<button onclick="powerpassword(`login`)">power password</button>-->
+        <label for="loginPassword">סיסמה</label>
+        <input type="text" id="loginPassword" tabindex="2" />
 
-        <button onclick="login()">connect</button>
-        <br />
-
+        <button onclick="login()" tabindex="3">התחבר</button>
     </div>
-    <br />
-    <br />
+    <div class="main-container">
+        <h2>הרשמה</h2>
+        <label for="rusername">שם משתמש</label>
+        <input type="text" id="rusername" tabindex="4" />
 
-    <div>
-        <label for="rusername">username</label>
-        <input type="text" id="rusername" />
+        <label for="rpassword">סיסמה</label>
+        <input type="text" id="rpassword" tabindex="5" />
 
-        <br />
-        <label for="rpassword">password</label>
-        <input type="text" id="rpassword" />
+        <label for="rfirstname">שם פרטי</label>
+        <input type="text" id="rfirstname" tabindex="6" />
 
-        <br />
-        <label for="rfirstname">firstname</label>
-        <input type="text" id="rfirstname" />
+        <label for="rlastname">שם משפחה</label>
+        <input type="text" id="rlastname" tabindex="7" />
 
-        <br />
-        <label for="rlastname">lastname</label>
-        <input type="text" id="rlastname" />
-
-        <br />
-        <button onclick="powerpassword(`register`)">power password</button>
-
-        <button onclick="register()">signUp</button>
+        <button onclick="powerpassword(`register`)" tabindex="8">בדוק חוזק סיסמה</button>
+        <button onclick="register()" tabindex="9">הרשם</button>
     </div>
+</body>
+</html>
+<a href="Login.html">Login.html</a>-->
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <title>התחברות / הרשמה</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="Login.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <h2>התחברות</h2>
+        <label for="loginUsername">שם משתמש</label>
+        <input type="text" id="loginUsername" tabindex="1" />
+        <div style="color:#b71c1c; font-weight:bold; margin-bottom:8px;">שם המשתמש חייב להיות כתובת אימייל</div>
+
+        <label for="loginPassword">סיסמה</label>
+        <input type="text" id="loginPassword" tabindex="2" />
+
+        <button onclick="login()" tabindex="3">התחבר</button>
+    </div>
+    <div class="main-container">
+        <h2>הרשמה</h2>
+        <label for="rusername">שם משתמש</label>
+        <input type="text" id="rusername" tabindex="4" />
+        <div style="color:#b71c1c; font-weight:bold; margin-bottom:8px;">שם המשתמש חייב להיות כתובת אימייל</div>
+
+        <label for="rpassword">סיסמה</label>
+        <input type="text" id="rpassword" tabindex="5" />
+
+        <label for="rfirstname">שם פרטי</label>
+        <input type="text" id="rfirstname" tabindex="6" />
+
+        <label for="rlastname">שם משפחה</label>
+        <input type="text" id="rlastname" tabindex="7" />
+
+        <button onclick="powerpassword('register')" tabindex="8">בדוק חוזק סיסמה</button>
+        <button onclick="register()" tabindex="9">הרשם</button>
+    </div>
+    <!-- Toast container -->
+    <div id="toast" class="toast"></div>
 </body>
 </html>

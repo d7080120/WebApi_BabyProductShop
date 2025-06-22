@@ -23,11 +23,11 @@ namespace BabyProductShop.Controllers
 
         //POST api/<Orders>
         [HttpPost]
-        public async Task<ActionResult<OrderDTO>> AddOrder([FromBody] OrderDTO orderDTO)
+        public async Task<ActionResult<OrderBackDTO>> AddOrder([FromBody] OrderDTO orderDTO)
         {
             try
             {
-                OrderDTO newOrder = await orderService.addOrderAsync(orderDTO);
+                OrderBackDTO newOrder = await orderService.addOrderAsync(orderDTO);
                 if (newOrder != null)
                     return Ok(newOrder);
                 else

@@ -24,6 +24,8 @@ public partial class Order
     [Column("USER_ID")]
     public int? UserId { get; set; }
 
+
+
     [InverseProperty("Order")]
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 

@@ -11,7 +11,7 @@ builder.Services.AddScoped<IProductServies, ProductServies>();
 builder.Services.AddScoped<IProductRepositroy, ProductRepositroy>();
 builder.Services.AddScoped<IOrderServies, OrderServies>();
 builder.Services.AddScoped<IOrderRepositroy, OrderRepositroy>();
-builder.Services.AddDbContext<Prudoct_Kategory_webApi>(options=>options.UseSqlServer("Data Source=SRV2\\PUPILS;Initial Catalog=Prudoct_Kategory_webApi;Integrated Security=True; Trusted_Connection=True;TrustServerCertificate=True"));
+builder.Services.AddDbContext<Prudoct_Kategory_webApi>(options=>options.UseSqlServer("Data Source=.;Initial Catalog=Prudoct_Kategory_webApi;Integrated Security=True; Trusted_Connection=True;TrustServerCertificate=True"));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();

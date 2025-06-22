@@ -22,9 +22,9 @@ namespace BabyProductShop.Controllers
 
         //GET: api/<Users>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
+        public async Task<ActionResult<IEnumerable<UserDTO>>> Get()
         {
-            List<User> users = await userService.getAllUsersAsync();
+            List<UserDTO> users = await userService.getAllUsersAsync();
             if (users != null)
                 return Ok(users);
             else
@@ -33,11 +33,11 @@ namespace BabyProductShop.Controllers
 
         // POST api/<Users>
         [HttpPost]
-        public async Task<ActionResult<User>> Register([FromBody] User user)
+        public async Task<ActionResult<UserDTO>> Register([FromBody] UserDTO user)
         {
             try
             {
-                User newUser = await userService.registerAsync(user);
+                UserDTO newUser = await userService.registerAsync(user);
                 if (newUser != null)
                     return Ok(newUser);
                 else
@@ -51,9 +51,9 @@ namespace BabyProductShop.Controllers
         //// POST api/<Users>
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult<User>> Login([FromBody] UserDTO loginUser)
+        public async Task<ActionResult<UserDTO>> Login([FromBody] LoginUserDTO loginUser)
         {
-            User user = await userService.loginAsync(loginUser);
+            UserDTO user = await userService.loginAsync(loginUser);
             if (user != null)
             {
                 return Ok(user);
@@ -64,11 +64,11 @@ namespace BabyProductShop.Controllers
         }
         //PUT api/<Users>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] User userToUpdate)
+        public async Task<IActionResult> Put(int id, [FromBody] UserDTO userToUpdate)
         {
             try
             {
-                User updetedUser = await userService.updateAsync(userToUpdate, id);
+                UserDTO updetedUser = await userService.updateAsync(userToUpdate, id);
                 if (updetedUser != null)
                     return Ok(updetedUser);
                 else

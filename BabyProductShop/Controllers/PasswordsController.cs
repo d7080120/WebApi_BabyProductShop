@@ -18,7 +18,7 @@ namespace BabyProductShop.Controllers
      
          // POST api/<PasswordsController>
         [HttpPost]
-        public ActionResult<User> Post([FromBody] string value)
+        public ActionResult<int> Post([FromBody] string value)
         {
             int powerPassword = userServices.powerOfPassword(value);
             if (powerPassword != -1)
