@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BabyProductShop;
 using Moq.EntityFrameworkCore;
 using DTOEntities;
+using Microsoft.Extensions.Logging;
 
 namespace RepositoryTest
 {
@@ -23,8 +24,9 @@ namespace RepositoryTest
             mockContext.Setup(x => x.Users.AddAsync(It.IsAny<User>(), default))
                 .Callback<User, CancellationToken>((u, ct) => users.Add(u));
             mockContext.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);
-
-            var userRepository = new UserRepositroy(mockContext.Object);
+            var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+            var logger = loggerFactory.CreateLogger<UserRepositroy>();
+            var userRepository = new UserRepositroy(mockContext.Object, logger);
             var newUser = new User { Id = 2, Username = "new", Password = "pw2" };
 
             // Act
@@ -43,9 +45,11 @@ namespace RepositoryTest
             var users = new List<User> { user };
             var mockContext = new Mock<Prudoct_Kategory_webApi>();
             mockContext.Setup(x => x.Users).ReturnsDbSet(users);
+            var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+            var logger = loggerFactory.CreateLogger<UserRepositroy>();
 
-            var userRepository = new UserRepositroy(mockContext.Object);
-            var loginUser = new LoginUserDTO { Username = "user", Password = "pass" };
+            var userRepository = new UserRepositroy(mockContext.Object, logger);
+            var loginUser = new LoginUserDTO ( "user",  "pass" );
 
             // Act
             var result = await userRepository.loginAsync(loginUser);
@@ -64,9 +68,11 @@ namespace RepositoryTest
             var mockContext = new Mock<Prudoct_Kategory_webApi>();
             mockContext.Setup(x => x.Users).ReturnsDbSet(users);
             mockContext.Setup(x => x.SaveChangesAsync(default)).ReturnsAsync(1);
+            var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+            var logger = loggerFactory.CreateLogger<UserRepositroy>();
 
-            var userRepository = new UserRepositroy(mockContext.Object);
-            var updatedUser = new User { Id = 1, Username = "updatedUser", Password = "pass" };
+            var userRepository = new UserRepositroy(mockContext.Object,logger);
+            var updatedUser = new User { Id = 1, Username = "d07080120@gmail.com", Password = "pass!@DQQFF" };
 
             // Act
             var result = await userRepository.updateAsync(updatedUser, 1);
@@ -86,8 +92,10 @@ namespace RepositoryTest
             };
             var mockContext = new Mock<Prudoct_Kategory_webApi>();
             mockContext.Setup(x => x.Users).ReturnsDbSet(users);
+            var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+            var logger = loggerFactory.CreateLogger<UserRepositroy>();
 
-            var userRepository = new UserRepositroy(mockContext.Object);
+            var userRepository = new UserRepositroy(mockContext.Object, logger);
 
             // Act
             var result = await userRepository.getAllUsersAsync();

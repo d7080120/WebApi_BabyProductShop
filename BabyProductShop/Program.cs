@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NLog.Web;
 using Repositories;
 using Services;
 
@@ -11,10 +12,12 @@ builder.Services.AddScoped<IProductServies, ProductServies>();
 builder.Services.AddScoped<IProductRepositroy, ProductRepositroy>();
 builder.Services.AddScoped<IOrderServies, OrderServies>();
 builder.Services.AddScoped<IOrderRepositroy, OrderRepositroy>();
-builder.Services.AddDbContext<Prudoct_Kategory_webApi>(options=>options.UseSqlServer("Data Source=.;Initial Catalog=Prudoct_Kategory_webApi;Integrated Security=True; Trusted_Connection=True;TrustServerCertificate=True"));
+builder.Services.AddDbContext<Prudoct_Kategory_webApi>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+builder.Host.UseNLog();
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {

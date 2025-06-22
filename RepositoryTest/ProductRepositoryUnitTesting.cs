@@ -26,7 +26,8 @@ namespace RepositoryTest
             var repository = new ProductRepositroy(mockContext.Object);
 
             // Act
-            var result = await repository.getAllProductsAsync();
+            ProductQueryParameters p=new ProductQueryParameters();
+            var result = await repository.getAllProductsAsync(p);
 
             // Assert
             Assert.Equal(2, result.Count);
@@ -35,3 +36,6 @@ namespace RepositoryTest
         }
     }
 }
+
+
+
