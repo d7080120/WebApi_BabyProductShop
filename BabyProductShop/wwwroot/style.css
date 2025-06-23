@@ -1,0 +1,175 @@
+﻿body {
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.main-container {
+    background: rgba(255,255,255,0.95);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.24);
+    padding: 2rem 2.5rem;
+    max-width: 370px;
+    width: 96vw;
+    margin: 2.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: fadeIn 1.2s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1, h2 {
+    text-align: center;
+    color: #f76b1c;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.2rem;
+    color: #3d3d3d;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: .7rem;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 0.7rem 0.9rem;
+    border: 1.5px solid #ffd67a;
+    border-radius: 7px;
+    outline: none;
+    background: #fffbe8;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+    input[type="text"]:focus, input[type="password"]:focus {
+        border: 2px solid #f76b1c;
+        box-shadow: 0 0 7px #ffd67a77;
+        background: #fff7d6;
+    }
+
+    input[type="text"]:hover, input[type="password"]:hover {
+        border-color: #ff4e50;
+    }
+
+button {
+    width: 100%;
+    padding: 0.7rem 0;
+    background: linear-gradient(90deg, #f9d423 0%, #ff4e50 100%);
+    color: #fff;
+    font-size: 1.07rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    box-shadow: 0 2px 8px #ffd67a33;
+    transition: background 0.2s, transform 0.15s;
+}
+
+    button:hover {
+        background: linear-gradient(90deg, #ff4e50 0%, #f9d423 100%);
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 4px 16px #ffb34744;
+    }
+
+#updateDitels {
+    margin-top: 1.2rem;
+    background: #fffbe8;
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 8px #ffd67a33;
+}
+
+@media (max-width: 500px) {
+    .main-container {
+        padding: 1rem 0.4rem;
+        max-width: 99vw;
+    }
+
+    h1, h2 {
+        font-size: 1.1rem;
+    }
+}
+
+ מעבר טאב עובד אוטומטית בדפדפן, כאן הדגשה בשדה 
+input:focus, button:focus {
+    outline: 2px solid #ff4e50;
+    outline-offset: 1.5px;
+}
+
+.toast {
+    visibility: hidden;
+    min-width: 260px;
+    max-width: 95vw;
+    background: #333;
+    color: #fff;
+    text-align: right;
+    border-radius: 12px;
+    padding: 1.1rem 1.4rem;
+    position: fixed;
+    z-index: 1000;
+    top: 36px;
+    right: 36px;
+    font-size: 1.07rem;
+    box-shadow: 0 4px 24px 0 rgba(31, 38, 135, 0.18);
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+    direction: rtl;
+    line-height: 1.7;
+}
+
+    .toast.show {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .toast.error {
+        background: linear-gradient(90deg, #ff4e50 0%, #f76b1c 100%);
+        color: #fff;
+        border-right: 7px solid #d32f2f;
+    }
+
+    .toast.success {
+        background: linear-gradient(90deg, #43a047 0%, #a8e063 100%);
+        color: #fff;
+        border-right: 7px solid #43a047;
+    }
+
+    .toast.info {
+        background: linear-gradient(90deg, #1976d2 0%, #64b5f6 100%);
+        color: #fff;
+        border-right: 7px solid #1976d2;
+    }
+
+@media (max-width: 500px) {
+    .toast {
+        top: 12px;
+        right: 4vw;
+        min-width: 120px;
+        padding: 0.6rem 0.8rem;
+        font-size: 0.98rem;
+    }
+}

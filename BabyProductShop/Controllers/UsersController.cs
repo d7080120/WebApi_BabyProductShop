@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using DTOEntities;
+using Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,40 +14,46 @@ namespace BabyProductShop.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        UserServies userService = new UserServies();
+        private readonly IUserServies userService;
+        public UsersController(IUserServies iu)
+        {
+            userService = iu;
+        }
 
-        // GET: api/<Users>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        // GET api/<Users>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        //GET: api/<Users>
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<UserDTO>>> Get()
+        {
+            List<UserDTO> users = await userService.getAllUsersAsync();
+            if (users != null)
+                return Ok(users);
+            else
+                return StatusCode(400, "users didnt find");
+        }
 
         // POST api/<Users>
         [HttpPost]
-        public ActionResult<User> Post([FromBody]User user)
+        public async Task<ActionResult<UserDTO>> Register([FromBody] UserDTO user)
         {
-            user = userService.addUser(user);
-            if (user != null)
-                return Ok(user);
-            //return CreatedAtAction(nameof(Ok), new { id = user.UserId }, user);
-            else
-                return CreatedAtAction(nameof(BadRequest), null);
-
+            try
+            {
+                UserDTO newUser = await userService.registerAsync(user);
+                if (newUser != null)
+                    return Ok(newUser);
+                else
+                    return StatusCode(400, "fileds are empty");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
         }
         //// POST api/<Users>
-        //[HttpPost]
+        [HttpPost]
         [Route("login")]
-        public ActionResult<User> Post([FromBody] LoginUser loginUser)
+        public async Task<ActionResult<UserDTO>> Login([FromBody] LoginUserDTO loginUser)
         {
-            User user = userService.login(loginUser);
+            UserDTO user = await userService.loginAsync(loginUser);
             if (user != null)
             {
                 return Ok(user);
@@ -55,21 +64,21 @@ namespace BabyProductShop.Controllers
         }
         //PUT api/<Users>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]User userToUpdate)
+        public async Task<IActionResult> Put(int id, [FromBody] UserDTO userToUpdate)
         {
-            
-            userToUpdate = userService.update(userToUpdate, id );
-            if (userToUpdate != null)
-                return Ok(userToUpdate);
-            else
-                return BadRequest();
+            try
+            {
+                UserDTO updetedUser = await userService.updateAsync(userToUpdate, id);
+                if (updetedUser != null)
+                    return Ok(updetedUser);
+                else
+                    return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-
-        //// DELETE api/<Users>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
 
     }
 
