@@ -2,6 +2,7 @@
 using BabyProductShop;
 using DTOEntities;
 using Entities;
+using Microsoft.Extensions.Logging;
 using Repositories;
 using System.Text.Json;
 
@@ -11,10 +12,13 @@ namespace Services
     {
         private readonly IUserRepositroy userRepositroy;
         private readonly IMapper mapper;
-        public UserServies(IUserRepositroy ur ,IMapper mapper)
+        private readonly ILogger<UserServies> _logger;
+
+        public UserServies(IUserRepositroy ur ,IMapper mapper, ILogger<UserServies>logger)
         {
             userRepositroy = ur;
             this.mapper = mapper;
+            _logger = logger;
         }
        
         public async Task<UserDTO> updateAsync(UserDTO userToUpdate, int id)
@@ -47,7 +51,8 @@ namespace Services
             {
                 return null;
             }
-            User u= await userRepositroy.loginAsync(user);
+            _logger.LogInformation($"Login attempted with user Name , {user.Username} and password {user.Password}");
+            User u = await userRepositroy.loginAsync(user);
             UserDTO userDTO = mapper.Map<UserDTO>(u);
             return userDTO;
         }

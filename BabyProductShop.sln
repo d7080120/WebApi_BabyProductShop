@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositorie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{E5E34FEF-C63E-4A9C-A8F2-8BD0CC5C68DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryTest", "RepositoryTest\RepositoryTest.csproj", "{A7932D2B-DA0E-4BEE-ABA2-63B4C15A4C2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit testing", "RepositoryTest\Unit testing.csproj", "{A7932D2B-DA0E-4BEE-ABA2-63B4C15A4C2B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTOEntities", "DTOEntities\DTOEntities.csproj", "{F81FC234-8B60-44D9-A638-44CE7EF72544}"
 EndProject

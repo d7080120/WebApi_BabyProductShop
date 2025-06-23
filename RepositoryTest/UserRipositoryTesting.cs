@@ -8,6 +8,8 @@ using BabyProductShop;
 using Moq.EntityFrameworkCore;
 using DTOEntities;
 using Microsoft.Extensions.Logging;
+using Services;
+using AutoMapper;
 
 namespace RepositoryTest
 {
@@ -104,6 +106,57 @@ namespace RepositoryTest
             Assert.Equal(2, result.Count);
             Assert.Contains(result, u => u.Username == "A");
             Assert.Contains(result, u => u.Username == "B");
+        }
+
+        [Fact]
+        public async Task LoginAsync_ReturnsUserDTO_WhenCredentialsAreValid_AndLogsInformation()
+        {
+            // Arrange
+            var userRepoMock = new Mock<IUserRepositroy>();
+            var loggerMock = new Mock<ILogger<UserServies>>();
+            var mapperMock = new Mock<IMapper>();
+
+            var loginDto = new LoginUserDTO ("test@email.com", "pw123");
+            var userEntity = new User { Id = 1, Username = "test@email.com", Password = "pw123" };
+            var userDto = new UserDTO (  "test@email.com",  "pw123", string.Empty, string.Empty,1);
+
+            userRepoMock.Setup(r => r.loginAsync(It.IsAny<LoginUserDTO>())).ReturnsAsync(userEntity);
+            mapperMock.Setup(m => m.Map<UserDTO>(userEntity)).Returns(userDto);
+
+            var service = new UserServies(userRepoMock.Object, mapperMock.Object, loggerMock.Object);
+
+            // Act
+            var result = await service.loginAsync(loginDto);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal("test@email.com", result.Username);
+
+            // Verify the logger was called with LogInformation
+            loggerMock.Verify(
+                x => x.Log(
+                    LogLevel.Information,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("Login attempted with user Name")),
+                    null,
+                    It.IsAny<Func<It.IsAnyType, Exception, string>>()
+                ),
+                Times.Once
+            );
+        }
+
+        [Fact]
+        public async Task LoginAsync_ReturnsNull_WhenUsernameOrPasswordIsNull()
+        {
+            // Arrange
+            var userRepoMock = new Mock<IUserRepositroy>();
+            var loggerMock = new Mock<ILogger<UserServies>>();
+            var mapperMock = new Mock<IMapper>();
+            var service = new UserServies(userRepoMock.Object, mapperMock.Object, loggerMock.Object);
+
+            // Act & Assert
+            Assert.Null(await service.loginAsync(new LoginUserDTO ( null,  "pw123" )));
+            Assert.Null(await service.loginAsync(new LoginUserDTO ( "test@email.com",  null)));
         }
     }
 }

@@ -25,6 +25,9 @@ public class DatabaseFixture : IDisposable
     public void ClearDatabase()
     {
         // מחיקת כל הטבלאות*
+        DbContext.Products.RemoveRange(DbContext.Products);
+        DbContext.Orders.RemoveRange(DbContext.Orders);
+        DbContext.Categories.RemoveRange(DbContext.Categories);
         DbContext.Users.RemoveRange(DbContext.Users);
         // הוסף כאן RemoveRange לטבלאות נוספות במידת הצורך
         DbContext.SaveChanges();

@@ -11,11 +11,9 @@ namespace Repositories
     public class UserRepositroy : IUserRepositroy
     {
         private readonly Prudoct_Kategory_webApi _prudoct_Kategory_webApi;
-        private readonly ILogger<UserRepositroy> _logger;
         public UserRepositroy(Prudoct_Kategory_webApi prudoct_Kategory_webApi, ILogger<UserRepositroy>logger)
         {
             _prudoct_Kategory_webApi = prudoct_Kategory_webApi;
-            _logger = logger;
         }
 
 
@@ -35,7 +33,6 @@ namespace Repositories
         }
         public async Task<User>loginAsync(LoginUserDTO value)
         {
-            _logger.LogInformation($"Login attempted with user Name , {value.Username} and password {value.Password}");
             return await _prudoct_Kategory_webApi.Users.FirstOrDefaultAsync((u) => u.Password ==value.Password &&u.Username==value.Username);
              
         }
