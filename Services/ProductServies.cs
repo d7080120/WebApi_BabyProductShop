@@ -14,7 +14,7 @@ namespace Services
         public ProductServies(IProductRepositroy ur,IMapper mapper)
         {
             _productRepositroy = ur;
-            this._mapper = mapper;
+            _mapper = mapper;
             
         }
 
@@ -24,7 +24,7 @@ namespace Services
         //    return mapper.Map<List<ProductDTO>>(products);
         //}
 
-        public async Task<List<ProductDTO>> getAllProductsAsync(ProductQueryParameters parameters)
+        public async Task<List<ProductDTO>> getAllProductsAsync(ProductQueryParameters parameters)//GetAllProductsAsync
         {
             List<Product> products = await _productRepositroy.getAllProductsAsync(parameters);
             return _mapper.Map<List<ProductDTO>>(products);

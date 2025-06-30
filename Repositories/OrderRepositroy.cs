@@ -15,7 +15,7 @@ namespace Repositories
             _prudoct_Kategory_webApi = prudoct_Kategory_webApi;
         }
 
-        public async Task<Order> addOrderAsync(Order order)
+        public async Task<Order> addOrderAsync(Order order)//AdOrderAsync
         {
             await _prudoct_Kategory_webApi.Orders.AddAsync(order);
             await _prudoct_Kategory_webApi.SaveChangesAsync();

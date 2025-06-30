@@ -16,12 +16,12 @@ namespace Repositories
             _prudoct_Kategory_webApi = prudoct_Kategory_webApi;
         }
 
-        //public async Task<List<Product>> getAllProductsAsync()
+        //public async Task<List<Product>> getAllProductsAsync()//delete
         //{
         //    return await _prudoct_Kategory_webApi.Products.Include(c=>c.Category).ToListAsync();
         //}
 
-        public async Task<List<Product>> getAllProductsAsync(ProductQueryParameters parameters)
+        public async Task<List<Product>> getAllProductsAsync(ProductQueryParameters parameters)//GetAllProductsAsync
         {
             var query = _prudoct_Kategory_webApi.Products
                 .Include(p => p.Category)
@@ -54,7 +54,7 @@ namespace Repositories
 
             return await query.ToListAsync();
         }
-        public async Task<Product> getProductByIdAsync(int productId)
+        public async Task<Product> getProductByIdAsync(int productId)//GetProductByIdAsync
         {
             return await _prudoct_Kategory_webApi.Products
                 .Include(c => c.Category)

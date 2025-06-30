@@ -11,17 +11,17 @@ namespace Services
     public class UserServies : IUserServies
     {
         private readonly IUserRepositroy userRepositroy;
-        private readonly IMapper mapper;
+        private readonly IMapper mapper;//_mapper
         private readonly ILogger<UserServies> _logger;
 
         public UserServies(IUserRepositroy ur ,IMapper mapper, ILogger<UserServies>logger)
         {
             userRepositroy = ur;
-            this.mapper = mapper;
+            this.mapper = mapper;//_mapper = mapper
             _logger = logger;
         }
        
-        public async Task<UserDTO> updateAsync(UserDTO userToUpdate, int id)
+        public async Task<UserDTO> updateAsync(UserDTO userToUpdate, int id)//UpdateAsync
         {
             if (userToUpdate.Username == null || userToUpdate.Password == null || userToUpdate.FirstName == null || userToUpdate.LastName == null)
             {
@@ -45,7 +45,7 @@ namespace Services
                 throw new Exception("password is not strong");
         }
 
-        public async Task<UserDTO> loginAsync(LoginUserDTO user)
+        public async Task<UserDTO> loginAsync(LoginUserDTO user)//LoginAsync
         {
             if (user.Username == null || user.Password == null)
             {
@@ -57,7 +57,7 @@ namespace Services
             return userDTO;
         }
 
-        public async Task<UserDTO> registerAsync(UserDTO user)
+        public async Task<UserDTO> registerAsync(UserDTO user)//RegisterAsync
         {
             if (user.Username == null || user.Password == null || user.FirstName == null || user.LastName == null)
             {
@@ -86,7 +86,7 @@ namespace Services
             else
                 throw new Exception("password is not strong");
         }
-        public string emailValdator(string email)
+        public string emailValdator(string email)//EmailValdator
         {
             if (email == null || email == "")
             {
@@ -102,21 +102,19 @@ namespace Services
                 return "email is not valid";
             }
         }
-        public int powerOfPassword(string password)
+        public int powerOfPassword(string password)//PowerOfPassword
         {
             if (password == null || password == "")
             {
                 return -1;
             }
-            int result = Zxcvbn.Core.EvaluatePassword(password).Score;
-            return result;
+            return Zxcvbn.Core.EvaluatePassword(password).Score;
         }
 
-        public async Task<List<UserDTO>> getAllUsersAsync()
+        public async Task<List<UserDTO>> getAllUsersAsync()//GetAllUsersAsync
         {
             List<User> users= await userRepositroy.getAllUsersAsync();
-            List<UserDTO>userDTOs=mapper.Map<List<UserDTO>>(users);
-            return userDTOs;
+            return mapper.Map<List<UserDTO>>(users);
         }
 
     }

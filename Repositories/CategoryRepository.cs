@@ -16,7 +16,7 @@ namespace Repositories
             _prudoct_Kategory_webApi = prudoct_Kategory_webApi;
         }
 
-        public async Task<List<Category>> getAllCategoriesAsync()
+        public async Task<List<Category>> getAllCategoriesAsync()//GetAllCategoriesAsync - change all function names to PascalCase in all the files
         {
             return await _prudoct_Kategory_webApi.Categories.Include(c=>c.Products).ToListAsync();
         }

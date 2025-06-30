@@ -7,7 +7,7 @@ using Services;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860//
 
 namespace BabyProductShop.Controllers
 {
@@ -15,19 +15,20 @@ namespace BabyProductShop.Controllers
     [ApiController]
     public class OrdersController : ControllerBase
     {
-        private readonly IOrderServies orderService;
+        private readonly IOrderServies orderService;//_orderService 
         public OrdersController(IOrderServies iu)
         {
             orderService = iu;
         }
 
-        //POST api/<Orders>
+        //POST api/<Orders>//
         [HttpPost]
         public async Task<ActionResult<OrderBackDTO>> AddOrder([FromBody] OrderDTO orderDTO)
         {
             try
             {
                 OrderBackDTO newOrder = await orderService.addOrderAsync(orderDTO);
+                //use shorted syntax for returning Ok or NotFound
                 if (newOrder != null)
                     return Ok(newOrder);
                 else
