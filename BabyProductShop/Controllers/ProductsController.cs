@@ -6,7 +6,7 @@ using Services;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860//
 
 namespace BabyProductShop.Controllers
 {
@@ -14,12 +14,13 @@ namespace BabyProductShop.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductServies productService;
+        private readonly IProductServies productService;//_productService 
         public ProductsController(IProductServies iu)
         {
             productService = iu;
         }
 
+//delete
         ////GET: api/<Products>
         //[HttpGet]
         //public async Task<ActionResult<IEnumerable<ProductDTO>>> Get()
@@ -33,9 +34,10 @@ namespace BabyProductShop.Controllers
         //}
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDTO>>> Get([FromQuery] ProductQueryParameters parameters)
+        public async Task<ActionResult<IEnumerable<ProductDTO>>> Get([FromQuery] ProductQueryParameters parameters)//change function name 
         {
             List<ProductDTO> products = await productService.getAllProductsAsync(parameters);
+            //use shorted syntax for returning Ok or NotFound
             if (products != null)
                 return Ok(products);
             else
